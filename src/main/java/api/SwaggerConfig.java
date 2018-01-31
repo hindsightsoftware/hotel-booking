@@ -30,7 +30,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Restful-booker")
-                .description("Descrioption to come")
+                .description("Description to come")
                 .contact("Mark Winteringham")
                 .license("MIT")
                 .licenseUrl("https://opensource.org/licenses/MIT")
