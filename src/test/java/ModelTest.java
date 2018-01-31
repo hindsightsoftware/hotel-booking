@@ -1,5 +1,5 @@
 import db.BookingDB;
-import model.BookingModel;
+import model.Booking;
 import org.approvaltests.Approvals;
 import org.junit.Test;
 
@@ -16,9 +16,9 @@ public class ModelTest {
         checkin.setTime(1514764800);
         checkout.setTime(1514851200);
 
-        BookingModel bookingModel = new BookingModel("Mark", "Winteringham", 111, true, checkin, checkout, "Breakfast");
+        Booking booking = new Booking("Mark", "Winteringham", 111, true, checkin, checkout, "Breakfast");
 
-        Approvals.verify(bookingModel.toString());
+        Approvals.verify(booking.toString());
     }
 
     @Test
@@ -26,10 +26,10 @@ public class ModelTest {
         checkin.setTime(1514764800);
         checkout.setTime(1514851200);
 
-        BookingModel bookingModel = new BookingModel("Mark", "Winteringham", 111, true, checkin, checkout, "Breakfast");
+        Booking booking = new Booking("Mark", "Winteringham", 111, true, checkin, checkout, "Breakfast");
 
         BookingDB bookingDB = new BookingDB();
-        int result = bookingDB.create(bookingModel);
+        int result = bookingDB.create(booking);
 
         Approvals.verify(result);
     }

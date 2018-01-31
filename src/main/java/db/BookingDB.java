@@ -1,6 +1,6 @@
 package db;
 
-import model.BookingModel;
+import model.Booking;
 import org.h2.jdbcx.JdbcDataSource;
 
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 
 public class BookingDB {
 
-    public int create(BookingModel bookingModel) throws SQLException {
+    public int create(Booking booking) throws SQLException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         JdbcDataSource ds = new JdbcDataSource();
@@ -18,14 +18,16 @@ public class BookingDB {
         ds.setPassword("sa");
         Connection conn = ds.getConnection();
 
+        System.out.println(booking.toString());
+
         String sql = "INSERT INTO bookings(firstname, lastname, totalprice, deposit, checkin, checkout, additional) VALUES("
-                     + "'" + bookingModel.getFirstname() + "',"
-                     + "'" + bookingModel.getLastname() + "',"
-                     + bookingModel.getPrice() + ","
-                     + bookingModel.isBooked() + ","
-                     + "'" + dateFormat.format(bookingModel.getBookingDates().getCheckin()) + "',"
-                     + "'" + dateFormat.format(bookingModel.getBookingDates().getCheckout()) + "',"
-                     + "'" + bookingModel.getAdditional() + "'"
+                     + "'" + booking.getFirstname() + "',"
+                     + "'" + booking.getLastname() + "',"
+                     + booking.getTotalprice() + ","
+                     + booking.isDepositpaid() + ","
+                     + "'" + dateFormat.format(booking.getBookingDates().getCheckin()) + "',"
+                     + "'" + dateFormat.format(booking.getBookingDates().getCheckout()) + "',"
+                     + "'" + booking.getAdditionalneeds() + "'"
                      + ")";
 
         System.out.println(sql);

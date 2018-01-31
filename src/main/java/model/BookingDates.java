@@ -16,12 +16,23 @@ public class BookingDates {
         this.checkout = checkout;
     }
 
+    public BookingDates() {
+    }
+
     public Date getCheckin() {
         return checkin;
     }
 
     public Date getCheckout() {
         return checkout;
+    }
+
+    public void setCheckin(Date checkin) {
+        this.checkin = checkin;
+    }
+
+    public void setCheckout(Date checkout) {
+        this.checkout = checkout;
     }
 
     @Override
