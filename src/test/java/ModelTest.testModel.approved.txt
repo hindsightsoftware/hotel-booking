@@ -1,0 +1,10 @@
+Booking{firstname='Mark'
+, lastname='Winteringham'
+, price=111
+, booked=true
+, bookingDates=
+BookingDates{
+checkin=Sun Jan 18 13:46:04 GMT 1970
+, checkout=Sun Jan 18 13:47:31 GMT 1970}
+, additional='Breakfast'
+}
