@@ -19,12 +19,12 @@ public class Booking {
     @JsonProperty
     private String additionalneeds;
 
-    public Booking(String firstname, String lastname, int totalprice, boolean depositpaid, Date checkin, Date checkout, String additionalneeds) {
+    public Booking(String firstname, String lastname, int totalprice, boolean depositpaid, BookingDates bookingDates, String additionalneeds) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.totalprice = totalprice;
         this.depositpaid = depositpaid;
-        this.bookingDates = new BookingDates(checkin, checkout);
+        this.bookingDates = bookingDates;
         this.additionalneeds = additionalneeds;
     }
 
@@ -89,5 +89,64 @@ public class Booking {
                 "\n, bookingDates=" + bookingDates.toString() +
                 "\n, additionalneeds='" + additionalneeds + '\'' +
                 "\n}";
+    }
+
+    public static class BookingBuilder {
+
+        private String firstname;
+        private String lastname;
+        private int totalprice;
+        private boolean depositpaid;
+        private Date checkin;
+        private Date checkout;
+        private String additionalneeds;
+
+        public BookingBuilder setFirstname(String firstname) {
+            this.firstname = firstname;
+
+            return this;
+        }
+
+        public BookingBuilder setLastname(String lastname) {
+            this.lastname = lastname;
+
+            return this;
+        }
+
+        public BookingBuilder setTotalprice(int totalprice) {
+            this.totalprice = totalprice;
+
+            return this;
+        }
+
+        public BookingBuilder setDepositpaid(boolean depositpaid) {
+            this.depositpaid = depositpaid;
+
+            return this;
+        }
+
+        public BookingBuilder setCheckin(Date checkin) {
+            this.checkin = checkin;
+
+            return this;
+        }
+
+        public BookingBuilder setCheckout(Date checkout) {
+            this.checkout = checkout;
+
+            return this;
+        }
+
+        public BookingBuilder setAdditionalneeds(String additionalneeds) {
+            this.additionalneeds = additionalneeds;
+
+            return this;
+        }
+
+        public Booking build(){
+            BookingDates bookingDates = new BookingDates(checkin, checkout);
+
+            return new Booking(firstname, lastname, totalprice, depositpaid, bookingDates, additionalneeds);
+        }
     }
 }

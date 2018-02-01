@@ -1,6 +1,6 @@
 model.Booking{firstname='Mark'
 , lastname='Winteringham'
-, totalprice=111
+, totalprice=123
 , depositpaid=true
 , bookingDates=
 model.BookingDates{

@@ -18,7 +18,7 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.POST)
-    public int createBooking(@RequestBody Booking booking) throws SQLException {
+    public Booking createBooking(@RequestBody Booking booking) throws SQLException {
         BookingDB bookingDB = new BookingDB();
         return bookingDB.create(booking);
     }

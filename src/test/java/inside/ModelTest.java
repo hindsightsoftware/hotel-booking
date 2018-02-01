@@ -18,7 +18,15 @@ public class ModelTest {
         checkin.setTime(1514764800);
         checkout.setTime(1514851200);
 
-        Booking booking = new Booking("Mark", "Winteringham", 111, true, checkin, checkout, "Breakfast");
+        Booking booking = new Booking.BookingBuilder()
+                .setFirstname("Mark")
+                .setLastname("Winteringham")
+                .setTotalprice(123)
+                .setDepositpaid(true)
+                .setCheckin(checkin)
+                .setCheckout(checkout)
+                .setAdditionalneeds("Breakfast")
+                .build();
 
         Approvals.verify(booking.toString());
     }
@@ -28,10 +36,18 @@ public class ModelTest {
         checkin.setTime(1514764800);
         checkout.setTime(1514851200);
 
-        Booking booking = new Booking("Mark", "Winteringham", 111, true, checkin, checkout, "Breakfast");
+        Booking booking = new Booking.BookingBuilder()
+                                     .setFirstname("Mark")
+                                     .setLastname("Winteringham")
+                                     .setTotalprice(123)
+                                     .setDepositpaid(true)
+                                     .setCheckin(checkin)
+                                     .setCheckout(checkout)
+                                     .setAdditionalneeds("Breakfast")
+                                     .build();
 
         BookingDB bookingDB = new BookingDB();
-        int result = bookingDB.create(booking);
+        Booking result = bookingDB.create(booking);
 
         Approvals.verify(result);
     }
