@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class BookingController {
 
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
-    public String returnBooking() {
+    public String readBooking() {
         return "to be wired";
     }
 

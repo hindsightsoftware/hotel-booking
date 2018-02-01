@@ -1,3 +1,5 @@
+package inside;
+
 import db.BookingDB;
 import model.Booking;
 import org.approvaltests.Approvals;
