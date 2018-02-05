@@ -15,7 +15,7 @@ public class BookingDB {
 
     public BookingDB() throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:/Users/mark/Documents/restful-booker-java/booking.db");
+        ds.setURL("jdbc:h2:" + System.getProperty("user.dir") + "/booking.db");
         ds.setUser("sa");
         ds.setPassword("sa");
         conn = ds.getConnection();
@@ -76,5 +76,13 @@ public class BookingDB {
                           .setCheckout(result.getDate("checkout"))
                           .setAdditionalneeds(result.getString("additional"))
                           .build();
+    }
+
+    public Boolean delete(int bookingid) throws SQLException {
+        String sql = "DELETE FROM bookings WHERE id='" + bookingid + "'";
+
+        int resultSet = conn.prepareStatement(sql).executeUpdate();
+        System.out.println(resultSet);
+        return resultSet == 1;
     }
 }

@@ -1,13 +1,18 @@
 package outside;
 
 import api.Application;
+import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.parsing.Parser;
 import com.jayway.restassured.response.Response;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import model.Auth;
 import model.Booking;
+import model.CreatedBooking;
+import model.Token;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.Assert;
 import org.springframework.boot.SpringApplication;
@@ -37,7 +42,7 @@ public class RestfulBookerStepDefs {
         }
 
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:/Users/mark/Documents/restful-booker-java/booking.db");
+        ds.setURL("jdbc:h2:" + System.getProperty("user.dir") + "/booking.db");
         ds.setUser("sa");
         ds.setPassword("sa");
         Connection conn = ds.getConnection();
@@ -125,6 +130,36 @@ public class RestfulBookerStepDefs {
                 "}";
 
         Assert.assertThat(expectedResponse,is(responseBooking.toString()));
+    }
+
+    Response authResponse;
+
+    @Given("^the user is authenticated$")
+    public void logIn() throws Exception {
+        Auth auth = new Auth("admin", "password123");
+
+        authResponse = given()
+                        .body(auth)
+                        .contentType(ContentType.JSON)
+                       .when()
+                        .post("/auth");
+    }
+
+    @When("^a specific booking is deleted by the user$")
+    public void createBookingAndDeleteIt() throws Exception {
+        Response createdBooking = createBooking();
+        int id = createdBooking.as(CreatedBooking.class).getBookingid();
+        String token = authResponse.as(Token.class).getToken();
+
+        httpResponse = given()
+                        .cookie("token", token)
+                       .when()
+                        .delete("/booking/" + id);
+    }
+
+    @Then("^the booking is removed$")
+    public void the_booking_is_removed() throws Exception {
+        Assert.assertThat(httpResponse.statusCode(), is(202));
     }
 
     private Response createBooking() throws ParseException {

@@ -4,7 +4,7 @@ model.Booking{firstname='Mark'
 , depositpaid=true
 , bookingDates=
 model.BookingDates{
-checkin=2018-02-01
-, checkout=2018-02-02}
+checkin=1970-01-18
+, checkout=1970-01-18}
 , additionalneeds='Breakfast'
 }
