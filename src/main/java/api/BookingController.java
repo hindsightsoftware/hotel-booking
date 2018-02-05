@@ -45,7 +45,20 @@ public class BookingController {
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
+    }
 
+    @RequestMapping(value = "/booking/{id}", method = RequestMethod.PUT)
+    public ResponseEntity updateBooking(@RequestBody Booking booking, @PathVariable(value = "id") int id, @CookieValue(value ="token", required = false) String token) throws SQLException {
+        System.out.println(booking.toString());
+        if(Tokens.verify(token)){
+            if(bookingDB.update(id, booking)){
+                return ResponseEntity.accepted().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
 }

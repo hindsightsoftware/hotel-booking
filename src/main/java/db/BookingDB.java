@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 public class BookingDB {
 
     private Connection conn;
+    private SimpleDateFormat dateFormat;
 
     public BookingDB() throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
@@ -19,11 +20,11 @@ public class BookingDB {
         ds.setUser("sa");
         ds.setPassword("sa");
         conn = ds.getConnection();
+
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 
     public CreatedBooking create(Booking booking) throws SQLException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
         String sql = "INSERT INTO bookings(firstname, lastname, totalprice, deposit, checkin, checkout, additional) VALUES("
                      + "'" + booking.getFirstname() + "',"
                      + "'" + booking.getLastname() + "',"
@@ -82,7 +83,22 @@ public class BookingDB {
         String sql = "DELETE FROM bookings WHERE id='" + bookingid + "'";
 
         int resultSet = conn.prepareStatement(sql).executeUpdate();
-        System.out.println(resultSet);
+        return resultSet == 1;
+    }
+
+    public Boolean update(int bookingid, Booking newBooking) throws SQLException {
+        String sql = "UPDATE bookings SET "
+                        + "firstname='" + newBooking.getFirstname() + "',"
+                        + "lastname='" + newBooking.getLastname() + "',"
+                        + "totalprice=" + newBooking.getTotalprice() + ","
+                        + "deposit=" + newBooking.isDepositpaid() + ","
+                        + "checkin='" + dateFormat.format(newBooking.getBookingDates().getCheckin()) + "',"
+                        + "checkout='" + dateFormat.format(newBooking.getBookingDates().getCheckout()) + "',"
+                        + "additional='" + newBooking.getAdditionalneeds() + "' WHERE ID=" + bookingid;
+
+        System.out.println(sql);
+
+        int resultSet = conn.prepareStatement(sql).executeUpdate();
         return resultSet == 1;
     }
 }

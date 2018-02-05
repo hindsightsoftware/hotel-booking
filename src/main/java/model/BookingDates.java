@@ -8,10 +8,10 @@ import java.util.Date;
 public class BookingDates {
 
     @JsonProperty
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", locale = "en_GB", timezone="UTC")
     private Date checkin;
     @JsonProperty
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", locale = "en_GB", timezone="UTC")
     private Date checkout;
 
     public BookingDates(Date checkin, Date checkout) {

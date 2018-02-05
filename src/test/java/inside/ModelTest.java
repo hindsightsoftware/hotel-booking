@@ -57,6 +57,26 @@ public class ModelTest {
         Approvals.verify(deletedBooking);
     }
 
+    @Test
+    public void testUpdateBooking() throws SQLException {
+        CreatedBooking createdBooking = createBooking();
+
+        Booking newBooking = new Booking.BookingBuilder()
+                                        .setFirstname("Mark")
+                                        .setLastname("Winteringham")
+                                        .setTotalprice(123)
+                                        .setDepositpaid(true)
+                                        .setCheckin(checkin)
+                                        .setCheckout(checkout)
+                                        .setAdditionalneeds("Breakfast")
+                                        .build();
+
+        BookingDB bookingDB = new BookingDB();
+        Boolean updatedBooking = bookingDB.update(createdBooking.getBookingid(), newBooking);
+
+        Approvals.verify(updatedBooking);
+    }
+
     private CreatedBooking createBooking() throws SQLException {
         checkin.setTime(1514764800);
         checkout.setTime(1514851200);

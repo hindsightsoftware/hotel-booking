@@ -5,6 +5,7 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.parsing.Parser;
 import com.jayway.restassured.response.Response;
+import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -32,6 +33,7 @@ public class RestfulBookerStepDefs {
     private Booking booking;
     private SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
     private Response httpResponse;
+    private Response authResponse;
 
     @Before
     public static void setup() throws SQLException {
@@ -129,10 +131,8 @@ public class RestfulBookerStepDefs {
                 "    }\n" +
                 "}";
 
-        Assert.assertThat(expectedResponse,is(responseBooking.toString()));
+        Assert.assertThat(expectedResponse,is(responseBooking));
     }
-
-    Response authResponse;
 
     @Given("^the user is authenticated$")
     public void logIn() throws Exception {
@@ -158,8 +158,58 @@ public class RestfulBookerStepDefs {
     }
 
     @Then("^the booking is removed$")
-    public void the_booking_is_removed() throws Exception {
+    public void checkBookingIsRemoved() throws Exception {
         Assert.assertThat(httpResponse.statusCode(), is(202));
+    }
+
+    @When("^a specific booking is updated by the user$")
+    public void updateBooking() throws Exception {
+        Date checkin = dateParser.parse("2018-06-01");
+        Date checkout = dateParser.parse("2018-06-02");
+
+        Booking update = new Booking.BookingBuilder()
+                             .setFirstname("Updated")
+                             .setLastname("User")
+                             .setTotalprice(999)
+                             .setDepositpaid(false)
+                             .setCheckin(checkin)
+                             .setCheckout(checkout)
+                             .setAdditionalneeds("Newspaper")
+                             .build();
+
+        String token = authResponse.as(Token.class).getToken();
+
+        Response updatedBooking = given()
+                                    .body(update)
+                                    .cookie("token", token)
+                                    .contentType(ContentType.JSON)
+                                  .when()
+                                    .put("/booking/" + httpResponse.as(CreatedBooking.class).getBookingid());
+
+        Assert.assertThat(updatedBooking.statusCode(), is(202));
+    }
+
+    @Then("^the booking is shown to be updated$")
+    public void confirmUpdatedBooking() throws Exception {
+        String updatedResponse = given()
+                .accept(ContentType.JSON)
+                .get("/booking/" + httpResponse.as(CreatedBooking.class).getBookingid())
+                .body()
+                .prettyPrint();
+
+        String expectedResponse = "{\n" +
+                "    \"firstname\": \"Updated\",\n" +
+                "    \"lastname\": \"User\",\n" +
+                "    \"totalprice\": 999,\n" +
+                "    \"depositpaid\": false,\n" +
+                "    \"additionalneeds\": \"Newspaper\",\n" +
+                "    \"bookingdates\": {\n" +
+                "        \"checkin\": \"2018-06-01\",\n" +
+                "        \"checkout\": \"2018-06-02\"\n" +
+                "    }\n" +
+                "}";
+
+        Assert.assertThat(expectedResponse,is(updatedResponse));
     }
 
     private Response createBooking() throws ParseException {

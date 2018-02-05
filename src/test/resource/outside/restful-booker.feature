@@ -16,10 +16,15 @@ Feature: RestfulBooker
     Given RestfulBooker has existing bookings
     And the user is authenticated
     When a specific booking is updated by the user
-    Then the booking is shown
+    Then the booking is shown to be updated
 
   Scenario: Delete a booking in RestfulBooker
     Given RestfulBooker has existing bookings
     And the user is authenticated
     When a specific booking is deleted by the user
     Then the booking is removed
+
+  Scenario: Retrieve all bookings from RestfulBooker
+    Given RestfulBooker has existing bookings
+    When the booking ids are requested
+    Then all the booking ids are returned
