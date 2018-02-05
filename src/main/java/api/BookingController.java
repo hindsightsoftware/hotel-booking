@@ -2,15 +2,19 @@ package api;
 
 import db.BookingDB;
 import model.Booking;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import model.CreatedBooking;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
 @RestController
 public class BookingController {
+
+    private BookingDB bookingDB;
+
+    public BookingController() throws SQLException {
+        bookingDB = new BookingDB();
+    }
 
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
     public String readBooking() {
@@ -18,9 +22,13 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.POST)
-    public Booking createBooking(@RequestBody Booking booking) throws SQLException {
-        BookingDB bookingDB = new BookingDB();
+    public CreatedBooking createBooking(@RequestBody Booking booking) throws SQLException {
         return bookingDB.create(booking);
+    }
+
+    @RequestMapping(value = "/booking/{id}", method = RequestMethod.GET)
+    public Booking getBooking(@PathVariable(value = "id") int id) throws SQLException {
+        return bookingDB.query(id);
     }
 
 }

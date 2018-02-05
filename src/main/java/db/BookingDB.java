@@ -1,6 +1,7 @@
 package db;
 
 import model.Booking;
+import model.CreatedBooking;
 import org.h2.jdbcx.JdbcDataSource;
 
 import java.sql.Connection;
@@ -20,10 +21,8 @@ public class BookingDB {
         conn = ds.getConnection();
     }
 
-    public Booking create(Booking booking) throws SQLException {
+    public CreatedBooking create(Booking booking) throws SQLException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        System.out.println(booking.toString());
 
         String sql = "INSERT INTO bookings(firstname, lastname, totalprice, deposit, checkin, checkout, additional) VALUES("
                      + "'" + booking.getFirstname() + "',"
@@ -35,19 +34,35 @@ public class BookingDB {
                      + "'" + booking.getAdditionalneeds() + "'"
                      + ")";
 
-        System.out.println(sql);
-
         int updateSuccess = conn.prepareStatement(sql).executeUpdate();
 
         if(updateSuccess > 0){
-            return query();
+            ResultSet lastInsertId = conn.prepareStatement("SELECT LAST_INSERT_ID()").executeQuery();
+            lastInsertId.next();
+
+            String querySql = "SELECT * FROM bookings WHERE id='" + lastInsertId.getInt("LAST_INSERT_ID()") + "'";
+
+            ResultSet result = conn.prepareStatement(querySql).executeQuery();
+            result.next();
+
+            Booking createdBooking = new Booking.BookingBuilder()
+                                            .setFirstname(result.getString("firstname"))
+                                            .setLastname(result.getString("lastname"))
+                                            .setTotalprice(result.getInt("totalprice"))
+                                            .setDepositpaid(result.getBoolean("deposit"))
+                                            .setCheckin(result.getDate("checkin"))
+                                            .setCheckout(result.getDate("checkout"))
+                                            .setAdditionalneeds(result.getString("additional"))
+                                            .build();
+
+            return new CreatedBooking(result.getInt("id"), booking);
         } else {
             return null;
         }
     }
 
-    public Booking query() throws SQLException{
-        String sql = "SELECT * FROM bookings WHERE id='1'";
+    public Booking query(int id) throws SQLException{
+        String sql = "SELECT * FROM bookings WHERE id='" + id + "'";
 
         ResultSet result = conn.prepareStatement(sql).executeQuery();
         result.next();

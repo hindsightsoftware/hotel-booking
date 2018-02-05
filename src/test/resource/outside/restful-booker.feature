@@ -6,3 +6,20 @@ Feature: RestfulBooker
     When the booking is submitted by the user
     Then the booking is successfully stored
     And shown to the user as stored
+
+  Scenario: Retrieve a booking in RestfulBooker
+    Given RestfulBooker has existing bookings
+    When a specific booking is requested by the user
+    Then the booking is shown
+
+  Scenario: Update a booking in RestfulBooker
+    Given RestfulBooker has existing bookings
+    And the user is authenticated
+    When a specific booking is updated by the user
+    Then the booking is shown
+
+  Scenario: Delete a booking in RestfulBooker
+    Given RestfulBooker has existing bookings
+    And the user is authenticated
+    When a specific booking is deleted by the user
+    Then the booking is removed

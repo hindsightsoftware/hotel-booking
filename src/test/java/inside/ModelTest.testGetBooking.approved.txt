@@ -1,0 +1,10 @@
+model.Booking{firstname='Mark'
+, lastname='Winteringham'
+, totalprice=123
+, depositpaid=true
+, bookingDates=
+model.BookingDates{
+checkin=2018-02-01
+, checkout=2018-02-02}
+, additionalneeds='Breakfast'
+}
