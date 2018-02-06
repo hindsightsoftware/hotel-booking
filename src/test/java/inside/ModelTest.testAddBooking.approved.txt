@@ -6,7 +6,7 @@ bookingid=1
 , depositpaid=true
 , bookingDates=
 model.BookingDates{
-checkin=Sun Jan 18 13:46:04 GMT 1970
-, checkout=Sun Jan 18 13:47:31 GMT 1970}
+checkin=1970-01-18
+, checkout=1970-01-18}
 , additionalneeds='Breakfast'
 }}

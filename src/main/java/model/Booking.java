@@ -2,6 +2,8 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class Booking {
@@ -26,6 +28,15 @@ public class Booking {
         this.depositpaid = depositpaid;
         this.bookingDates = bookingDates;
         this.additionalneeds = additionalneeds;
+    }
+
+    public Booking(ResultSet result) throws SQLException {
+        this.firstname = result.getString("firstname");
+        this.lastname = result.getString("lastname");
+        this.totalprice = result.getInt("totalprice");
+        this.depositpaid = result.getBoolean("deposit");
+        this.bookingDates = new BookingDates(result.getDate("checkin"), result.getDate("checkout"));
+        this.additionalneeds = result.getString("additional");
     }
 
     public Booking() {

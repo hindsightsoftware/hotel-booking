@@ -28,19 +28,10 @@ public class BookingDB {
     }
 
     public CreatedBooking create(Booking booking) throws SQLException {
-        String sql = "INSERT INTO bookings(firstname, lastname, totalprice, deposit, checkin, checkout, additional) VALUES("
-                     + "'" + booking.getFirstname() + "',"
-                     + "'" + booking.getLastname() + "',"
-                     + booking.getTotalprice() + ","
-                     + booking.isDepositpaid() + ","
-                     + "'" + dateFormat.format(booking.getBookingDates().getCheckin()) + "',"
-                     + "'" + dateFormat.format(booking.getBookingDates().getCheckout()) + "',"
-                     + "'" + booking.getAdditionalneeds() + "'"
-                     + ")";
+        InsertSql insertSql = new InsertSql(booking);
+        String sql = insertSql.buildSql();
 
-        int updateSuccess = conn.prepareStatement(sql).executeUpdate();
-
-        if(updateSuccess > 0){
+        if(conn.prepareStatement(sql).executeUpdate() > 0){
             ResultSet lastInsertId = conn.prepareStatement("SELECT LAST_INSERT_ID()").executeQuery();
             lastInsertId.next();
 
@@ -49,17 +40,9 @@ public class BookingDB {
             ResultSet result = conn.prepareStatement(querySql).executeQuery();
             result.next();
 
-            Booking createdBooking = new Booking.BookingBuilder()
-                                            .setFirstname(result.getString("firstname"))
-                                            .setLastname(result.getString("lastname"))
-                                            .setTotalprice(result.getInt("totalprice"))
-                                            .setDepositpaid(result.getBoolean("deposit"))
-                                            .setCheckin(result.getDate("checkin"))
-                                            .setCheckout(result.getDate("checkout"))
-                                            .setAdditionalneeds(result.getString("additional"))
-                                            .build();
+            Booking createdBooking = new Booking(result);
 
-            return new CreatedBooking(result.getInt("id"), booking);
+            return new CreatedBooking(result.getInt("id"), createdBooking);
         } else {
             return null;
         }
@@ -71,15 +54,7 @@ public class BookingDB {
         ResultSet result = conn.prepareStatement(sql).executeQuery();
         result.next();
 
-        return new Booking.BookingBuilder()
-                          .setFirstname(result.getString("firstname"))
-                          .setLastname(result.getString("lastname"))
-                          .setTotalprice(result.getInt("totalprice"))
-                          .setDepositpaid(result.getBoolean("deposit"))
-                          .setCheckin(result.getDate("checkin"))
-                          .setCheckout(result.getDate("checkout"))
-                          .setAdditionalneeds(result.getString("additional"))
-                          .build();
+        return new Booking(result);
     }
 
     public Boolean delete(int bookingid) throws SQLException {
@@ -90,14 +65,8 @@ public class BookingDB {
     }
 
     public Boolean update(int bookingid, Booking newBooking) throws SQLException {
-        String sql = "UPDATE bookings SET "
-                        + "firstname='" + newBooking.getFirstname() + "',"
-                        + "lastname='" + newBooking.getLastname() + "',"
-                        + "totalprice=" + newBooking.getTotalprice() + ","
-                        + "deposit=" + newBooking.isDepositpaid() + ","
-                        + "checkin='" + dateFormat.format(newBooking.getBookingDates().getCheckin()) + "',"
-                        + "checkout='" + dateFormat.format(newBooking.getBookingDates().getCheckout()) + "',"
-                        + "additional='" + newBooking.getAdditionalneeds() + "' WHERE ID=" + bookingid;
+        UpdateSql updateSql = new UpdateSql(bookingid, newBooking);
+        String sql = updateSql.buildSql();
 
         int resultSet = conn.prepareStatement(sql).executeUpdate();
         return resultSet == 1;
