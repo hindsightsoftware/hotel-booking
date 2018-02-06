@@ -22,7 +22,6 @@ import java.util.List;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.Is.is;
 
 public class RestfulBookerStepDefs {
@@ -35,12 +34,13 @@ public class RestfulBookerStepDefs {
     private Response multipleResponse1;
     private Response multipleResponse2;
 
+    private static boolean loadApi = false;
+
     @Before
     public void setup() throws SQLException {
-        try {
+        if(!loadApi){
             SpringApplication.run(Application.class);
-        } catch (Exception e ){
-            System.out.println(e.toString());
+            loadApi = true;
         }
     }
 
