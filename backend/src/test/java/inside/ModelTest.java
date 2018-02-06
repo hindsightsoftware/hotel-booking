@@ -19,7 +19,7 @@ public class ModelTest {
     @Before
     public void resetDatabase() throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:" + System.getProperty("user.dir") + "/booking.db");
+        ds.setURL("jdbc:h2:" + getClass().getProtectionDomain().getCodeSource().getLocation() + "../../booking.db");
         ds.setUser("sa");
         ds.setPassword("sa");
         Connection conn = ds.getConnection();

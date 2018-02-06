@@ -36,7 +36,7 @@ public class RestfulBookerStepDefs {
     private Response authResponse;
 
     @Before
-    public static void setup() throws SQLException {
+    public void setup() throws SQLException {
         try {
             SpringApplication.run(Application.class);
         } catch (Exception e ){
@@ -44,7 +44,7 @@ public class RestfulBookerStepDefs {
         }
 
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:" + System.getProperty("user.dir") + "/booking.db");
+        ds.setURL("jdbc:h2:" + getClass().getProtectionDomain().getCodeSource().getLocation() + "../../booking.db");
         ds.setUser("sa");
         ds.setPassword("sa");
         Connection conn = ds.getConnection();
