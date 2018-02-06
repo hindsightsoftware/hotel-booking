@@ -1,11 +1,8 @@
 package outside;
 
 import api.Application;
-import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
-import com.jayway.restassured.parsing.Parser;
 import com.jayway.restassured.response.Response;
-import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -14,11 +11,9 @@ import model.Auth;
 import model.Booking;
 import model.CreatedBooking;
 import model.Token;
-import org.h2.jdbcx.JdbcDataSource;
 import org.junit.Assert;
 import org.springframework.boot.SpringApplication;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,15 +21,20 @@ import java.util.Date;
 import java.util.List;
 
 import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.Is.is;
 
 public class RestfulBookerStepDefs {
 
     private Booking booking;
     private SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
-    private Response httpResponse;
+    private Response createdResponse;
     private Response authResponse;
-
+    private Response queriedResponse;
+    private Response multipleResponse1;
+    private Response multipleResponse2;
+    
     @Before
     public void setup() throws SQLException {
         try {
@@ -42,15 +42,6 @@ public class RestfulBookerStepDefs {
         } catch (Exception e ){
             System.out.println(e.toString());
         }
-
-        JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:" + getClass().getProtectionDomain().getCodeSource().getLocation() + "../../booking.db");
-        ds.setUser("sa");
-        ds.setPassword("sa");
-        Connection conn = ds.getConnection();
-
-        conn.prepareStatement("DELETE FROM bookings").execute();
-        conn.prepareStatement("ALTER TABLE bookings ALTER COLUMN id RESTART WITH 1").execute();
     }
 
     @Given("^a user wants to make a booking with the following details$")
@@ -71,7 +62,7 @@ public class RestfulBookerStepDefs {
 
     @When("^the booking is submitted by the user$")
     public void sendBookingPayload() throws Exception {
-        httpResponse = given()
+        createdResponse = given()
                         .body(booking)
                         .contentType(ContentType.JSON)
                        .when()
@@ -80,12 +71,12 @@ public class RestfulBookerStepDefs {
 
     @Then("^the booking is successfully stored$")
     public void assertBookingResponse() throws Exception {
-        httpResponse.then().statusCode(200);
+        createdResponse.then().statusCode(200);
     }
 
     @Then("^shown to the user as stored$")
     public void shown_to_the_user_as_stored() throws Exception {
-        String responseBooking = httpResponse.getBody().prettyPrint();
+        String responseBooking = createdResponse.getBody().prettyPrint();
         String expectedResponse = "{\n" +
                 "    \"bookingid\": 1,\n" +
                 "    \"booking\": {\n" +
@@ -106,19 +97,19 @@ public class RestfulBookerStepDefs {
 
     @Given("^RestfulBooker has existing bookings$")
     public void restfulbooker_has_existing_bookings() throws Exception {
-        httpResponse = createBooking();
+        createdResponse = createBooking();
     }
 
     @When("^a specific booking is requested by the user$")
     public void requestBooking() throws Exception {
-        httpResponse = given()
-                        .accept(ContentType.JSON)
-                        .get("/booking/1");
+        queriedResponse = given()
+                            .accept(ContentType.JSON)
+                            .get("/booking/" + createdResponse.as(CreatedBooking.class).getBookingid());
     }
 
     @Then("^the booking is shown$")
     public void the_booking_is_shown() throws Exception {
-        String responseBooking = httpResponse.body().prettyPrint();
+        String responseBooking = queriedResponse.body().prettyPrint();
         String expectedResponse = "{\n" +
                 "    \"firstname\": \"Mark\",\n" +
                 "    \"lastname\": \"Winteringham\",\n" +
@@ -151,7 +142,7 @@ public class RestfulBookerStepDefs {
         int id = createdBooking.as(CreatedBooking.class).getBookingid();
         String token = authResponse.as(Token.class).getToken();
 
-        httpResponse = given()
+        createdResponse = given()
                         .cookie("token", token)
                        .when()
                         .delete("/booking/" + id);
@@ -159,7 +150,7 @@ public class RestfulBookerStepDefs {
 
     @Then("^the booking is removed$")
     public void checkBookingIsRemoved() throws Exception {
-        Assert.assertThat(httpResponse.statusCode(), is(202));
+        Assert.assertThat(createdResponse.statusCode(), is(202));
     }
 
     @When("^a specific booking is updated by the user$")
@@ -184,7 +175,7 @@ public class RestfulBookerStepDefs {
                                     .cookie("token", token)
                                     .contentType(ContentType.JSON)
                                   .when()
-                                    .put("/booking/" + httpResponse.as(CreatedBooking.class).getBookingid());
+                                    .put("/booking/" + createdResponse.as(CreatedBooking.class).getBookingid());
 
         Assert.assertThat(updatedBooking.statusCode(), is(202));
     }
@@ -193,7 +184,7 @@ public class RestfulBookerStepDefs {
     public void confirmUpdatedBooking() throws Exception {
         String updatedResponse = given()
                 .accept(ContentType.JSON)
-                .get("/booking/" + httpResponse.as(CreatedBooking.class).getBookingid())
+                .get("/booking/" + createdResponse.as(CreatedBooking.class).getBookingid())
                 .body()
                 .prettyPrint();
 
@@ -214,28 +205,22 @@ public class RestfulBookerStepDefs {
 
     @Given("^RestfulBooker has multiple existing bookings$")
     public void createMultipleBookings() throws Exception {
-        createBooking();
-        createBooking();
+        multipleResponse1 = createBooking();
+        multipleResponse2 = createBooking();
     }
 
     @When("^the booking ids are requested$")
     public void requestBookingIds() throws Exception {
-        httpResponse = given()
+        createdResponse = given()
                         .get("/booking");
     }
 
     @Then("^all the booking ids are returned$")
     public void assertAllBookingIds() throws Exception {
-        String response = httpResponse.body().prettyPrint();
-        String expectedResponse = "[\n" +
-                "    {\n" +
-                "        \"id\": 1\n" +
-                "    },\n    {\n" +
-                "        \"id\": 2\n" +
-                "    }\n" +
-                "]";
+        String response = createdResponse.body().prettyPrint();
 
-        Assert.assertThat(response, is(expectedResponse));
+        Assert.assertThat(response, containsString("" + multipleResponse1.as(CreatedBooking.class).getBookingid()));
+        Assert.assertThat(response, containsString("" + multipleResponse2.as(CreatedBooking.class).getBookingid()));
     }
 
     private Response createBooking() throws ParseException {

@@ -19,11 +19,13 @@ public class BookingDB {
 
     public BookingDB() throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:" + getClass().getProtectionDomain().getCodeSource().getLocation() + "../../booking.db");
+        ds.setURL("jdbc:h2:mem:");
         ds.setUser("sa");
         ds.setPassword("sa");
         conn = ds.getConnection();
 
+        String prepareDb = "CREATE TABLE bookings (id BIGINT AUTO_INCREMENT, firstname VARCHAR(255), lastname VARCHAR(255), totalprice INTEGER, deposit BOOLEAN, checkin DATE, checkout DATE, additional VARCHAR(255));";
+        conn.prepareStatement(prepareDb).executeUpdate();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 
