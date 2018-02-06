@@ -34,7 +34,7 @@ public class RestfulBookerStepDefs {
     private Response queriedResponse;
     private Response multipleResponse1;
     private Response multipleResponse2;
-    
+
     @Before
     public void setup() throws SQLException {
         try {

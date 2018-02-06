@@ -33,3 +33,6 @@ target/
 
 # DB
 *.trace.db
+
+# Node
+node_modules/
