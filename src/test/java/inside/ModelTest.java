@@ -2,6 +2,7 @@ package inside;
 
 import db.BookingDB;
 import model.Booking;
+import model.BookingID;
 import model.CreatedBooking;
 import org.approvaltests.Approvals;
 import org.h2.jdbcx.JdbcDataSource;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 public class ModelTest {
 
@@ -75,6 +77,17 @@ public class ModelTest {
         Boolean updatedBooking = bookingDB.update(createdBooking.getBookingid(), newBooking);
 
         Approvals.verify(updatedBooking);
+    }
+
+    @Test
+    public void testQueryBookingIds() throws SQLException {
+        createBooking();
+        createBooking();
+
+        BookingDB bookingDB = new BookingDB();
+        List<BookingID> bookings = bookingDB.queryId();
+
+        Approvals.verify(bookings.toString());
     }
 
     private CreatedBooking createBooking() throws SQLException {

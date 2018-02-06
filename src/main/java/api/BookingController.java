@@ -3,12 +3,14 @@ package api;
 import auth.Tokens;
 import db.BookingDB;
 import model.Booking;
+import model.BookingID;
 import model.CreatedBooking;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 public class BookingController {
@@ -20,8 +22,8 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
-    public String readBooking() {
-        return "to be wired";
+    public List<BookingID> readBooking() throws SQLException {
+        return bookingDB.queryId();
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.POST)

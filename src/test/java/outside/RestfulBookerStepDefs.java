@@ -212,6 +212,32 @@ public class RestfulBookerStepDefs {
         Assert.assertThat(expectedResponse,is(updatedResponse));
     }
 
+    @Given("^RestfulBooker has multiple existing bookings$")
+    public void createMultipleBookings() throws Exception {
+        createBooking();
+        createBooking();
+    }
+
+    @When("^the booking ids are requested$")
+    public void requestBookingIds() throws Exception {
+        httpResponse = given()
+                        .get("/booking");
+    }
+
+    @Then("^all the booking ids are returned$")
+    public void assertAllBookingIds() throws Exception {
+        String response = httpResponse.body().prettyPrint();
+        String expectedResponse = "[\n" +
+                "    {\n" +
+                "        \"id\": 1\n" +
+                "    },\n    {\n" +
+                "        \"id\": 2\n" +
+                "    }\n" +
+                "]";
+
+        Assert.assertThat(response, is(expectedResponse));
+    }
+
     private Response createBooking() throws ParseException {
         Date checkin = dateParser.parse("2018-02-01");
         Date checkout = dateParser.parse("2018-02-02");

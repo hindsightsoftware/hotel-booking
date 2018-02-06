@@ -25,6 +25,6 @@ Feature: RestfulBooker
     Then the booking is removed
 
   Scenario: Retrieve all bookings from RestfulBooker
-    Given RestfulBooker has existing bookings
+    Given RestfulBooker has multiple existing bookings
     When the booking ids are requested
     Then all the booking ids are returned

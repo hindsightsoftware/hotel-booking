@@ -1,6 +1,7 @@
 package db;
 
 import model.Booking;
+import model.BookingID;
 import model.CreatedBooking;
 import org.h2.jdbcx.JdbcDataSource;
 
@@ -8,6 +9,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingDB {
 
@@ -96,9 +99,19 @@ public class BookingDB {
                         + "checkout='" + dateFormat.format(newBooking.getBookingDates().getCheckout()) + "',"
                         + "additional='" + newBooking.getAdditionalneeds() + "' WHERE ID=" + bookingid;
 
-        System.out.println(sql);
-
         int resultSet = conn.prepareStatement(sql).executeUpdate();
         return resultSet == 1;
+    }
+
+    public List<BookingID> queryId() throws SQLException {
+        List<BookingID> listToReturn = new ArrayList<BookingID>();
+        String sql = "SELECT id FROM bookings";
+
+        ResultSet results = conn.prepareStatement(sql).executeQuery();
+        while(results.next()){
+            listToReturn.add(new BookingID(results.getInt("id")));
+        }
+
+        return listToReturn;
     }
 }
