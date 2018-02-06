@@ -22,7 +22,7 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking", method = RequestMethod.GET)
-    public List<BookingID> readBooking() throws SQLException {
+    public List<BookingID> readBookingIds() throws SQLException {
         return bookingDB.queryId();
     }
 
