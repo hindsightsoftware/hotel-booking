@@ -114,6 +114,7 @@ exports[`Form component 1`] = `
   >
     <input
       className="form-control input-sm"
+      id="firstname"
       placeholder="Firstname"
       type="text"
     />
@@ -123,6 +124,7 @@ exports[`Form component 1`] = `
   >
     <input
       className="form-control input-sm"
+      id="lastname"
       placeholder="Lastname"
       type="text"
     />
@@ -132,6 +134,7 @@ exports[`Form component 1`] = `
   >
     <input
       className="form-control input-sm"
+      id="totalprice"
       placeholder="Price"
       type="text"
     />
@@ -141,6 +144,7 @@ exports[`Form component 1`] = `
   >
     <input
       className="form-control input-sm"
+      id="depositpaid"
       placeholder="Deposit?"
       type="text"
     />
@@ -150,6 +154,7 @@ exports[`Form component 1`] = `
   >
     <input
       className="form-control input-sm"
+      id="additionalneeds"
       placeholder="Additional"
       type="text"
     />
@@ -159,6 +164,7 @@ exports[`Form component 1`] = `
   >
     <input
       className="form-control input-sm"
+      id="checkin"
       placeholder="Checkin"
       type="text"
     />
@@ -168,6 +174,7 @@ exports[`Form component 1`] = `
   >
     <input
       className="form-control input-sm"
+      id="checkout"
       placeholder="Checkout"
       type="text"
     />
