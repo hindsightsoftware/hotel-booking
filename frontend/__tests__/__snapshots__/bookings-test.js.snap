@@ -1,33 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App component 1`] = `
-<div>
+<div
+  id="wrap"
+>
+  <Nav />
   <div
-    id="wrap"
+    className="container"
   >
-    <Nav />
+    <Header />
     <div
-      className="container"
+      key="1"
     >
-      <Header />
-      <div
-        key="1"
-      >
-        <Booking
-          id={1}
-        />
-      </div>
-      <div
-        key="2"
-      >
-        <Booking
-          id={2}
-        />
-      </div>
-      <Form />
+      <Booking
+        id={1}
+      />
     </div>
+    <div
+      key="2"
+    >
+      <Booking
+        id={2}
+      />
+    </div>
+    <Form />
   </div>
-  <Footer />
 </div>
 `;
 
@@ -76,31 +73,14 @@ exports[`Booking component 1`] = `
     <i
       className="glyphicon glyphicon-edit"
     />
-     
-    <i
-      className="icon-remove-circle"
-    />
-  </div>
-</div>
-`;
-
-exports[`Footer component 1`] = `
-<div
-  id="footer"
->
-  <div
-    className="container"
-  >
-    <p
-      className="text-muted credit"
+    <button
+      className="delete"
+      onClick={[Function]}
     >
-      Restful-booker created by 
-      <a
-        href="http://mwtestconsultancy.co.uk"
-      >
-        Mark Winteringham
-      </a>
-    </p>
+      <i
+        className="glyphicon glyphicon-remove"
+      />
+    </button>
   </div>
 </div>
 `;

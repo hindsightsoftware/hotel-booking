@@ -37,8 +37,8 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteBooking(@PathVariable(value = "id") int id, @CookieValue(value ="token", required = false) String token) throws SQLException {
-        if(Tokens.verify(token)){
+    public ResponseEntity deleteBooking(@PathVariable(value = "id") int id, @CookieValue(value ="token", required = false) String token, @RequestHeader("Authorization") String auth) throws SQLException {
+        if(Tokens.verify(token) || auth.equals("Basic YWRtaW46cGFzc3dvcmQxMjM=")){
             if(bookingDB.delete(id)){
                 return ResponseEntity.accepted().build();
             } else {

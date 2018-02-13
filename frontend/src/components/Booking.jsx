@@ -18,6 +18,8 @@ export default class Booking extends React.Component {
                 }
             }
         };
+
+        this.destroyMe = this.destroyMe.bind(this);
     }
 
     componentDidMount() {
@@ -33,6 +35,17 @@ export default class Booking extends React.Component {
             })
     }
 
+    destroyMe() {
+        request
+            .delete('/booking/' + this.props.id)
+            .auth('admin', 'password123')
+            .then((res, err) => {
+                window.location.reload();
+            }).catch(e => {
+                console.log(e);
+            })
+    }
+
     render() {
         return (
             <div className="row">
@@ -43,7 +56,9 @@ export default class Booking extends React.Component {
                 <div className="col-md-2">{this.state.booking.additionalneeds}</div>
                 <div className="col-md-2">{this.state.booking.bookingdates.checkin}</div>
                 <div className="col-md-2">{this.state.booking.bookingdates.checkin}</div>
-                <div className="col-md-1"><i className="glyphicon glyphicon-edit"></i> <i className="icon-remove-circle"></i></div>      
+                <div className="col-md-1"><i className="glyphicon glyphicon-edit"></i> 
+                    <button onClick={this.destroyMe} className="delete"><i className="glyphicon glyphicon-remove"></i></button>
+                </div>      
             </div>
         );
       }

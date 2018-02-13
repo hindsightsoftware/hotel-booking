@@ -2,7 +2,6 @@ import React from 'react';
 import App from '../src/components/App.jsx';
 import Booking from '../src/components/Booking.jsx';
 import Nav from '../src/components/Nav.jsx';
-import Footer from '../src/components/Footer.jsx';
 import Header from '../src/components/Header.jsx';
 import Form from '../src/components/Form.jsx';
 import nock from 'nock';
@@ -55,14 +54,6 @@ test('Nav component', () => {
     expect(navBar).toMatchSnapshot();
 });
 
-test('Footer component', () => {
-    const footer = shallow(
-        <Footer />
-    )
-
-    expect(footer).toMatchSnapshot();
-});
-
 test('Header component', () => {
     const header = shallow(
         <Header />
@@ -110,4 +101,32 @@ test('Submit booking', (done) => {
     form.find('#checkin').instance().value = "2018-01-01"
     form.find('#checkout').instance().value = "2018-01-02"
     form.find('button').simulate('click');
-})
+});
+
+test('Delete booking', (done) => {
+
+    nock('http://localhost')
+        .delete('/booking/1')
+        .reply(201, () => {
+            done();
+        })
+
+    const testBooking = {
+        "firstname": "Billy",
+        "lastname": "Brown",
+        "totalprice": 90,
+        "depositpaid": true,
+        "additionalneeds": "Jam",
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        }
+    }
+
+    const bookingEntry = shallow(
+        <Booking id="1" />
+    )
+
+    bookingEntry.setState({ booking: testBooking });
+    bookingEntry.find('.delete').simulate('click');
+});

@@ -2,7 +2,6 @@ import React from 'react';
 import request from 'superagent';
 import Booking from './Booking.jsx';
 import Nav from './Nav.jsx';
-import Footer from './Footer.jsx';
 import Header from './Header.jsx';
 import Form from './Form.jsx';
 
@@ -27,7 +26,6 @@ export default class App extends React.Component {
 
   render() {
     return (
-     <div>
       <div id="wrap">
           <Nav />
           <div className="container">
@@ -37,8 +35,6 @@ export default class App extends React.Component {
               })}
               <Form />
           </div>
-      </div>
-      <Footer />
-     </div>);
+      </div>);
   }
 }
