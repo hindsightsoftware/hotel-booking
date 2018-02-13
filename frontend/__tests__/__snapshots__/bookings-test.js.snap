@@ -1,14 +1,296 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App 1`] = `
+exports[`App component 1`] = `
 <div>
-  <ul>
-    <li>
-      1
-    </li>
-    <li>
-      2
-    </li>
-  </ul>
+  <div
+    id="wrap"
+  >
+    <Nav />
+    <div
+      className="container"
+    >
+      <Header />
+      <div
+        key="1"
+      >
+        <Booking
+          id={1}
+        />
+      </div>
+      <div
+        key="2"
+      >
+        <Booking
+          id={2}
+        />
+      </div>
+      <Form />
+    </div>
+  </div>
+  <Footer />
+</div>
+`;
+
+exports[`Booking component 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-md-1"
+  >
+    Billy
+  </div>
+  <div
+    className="col-md-2"
+  >
+    Brown
+  </div>
+  <div
+    className="col-md-1"
+  >
+    90
+  </div>
+  <div
+    className="col-md-1"
+  >
+    true
+  </div>
+  <div
+    className="col-md-2"
+  >
+    Jam
+  </div>
+  <div
+    className="col-md-2"
+  >
+    2018-01-01
+  </div>
+  <div
+    className="col-md-2"
+  >
+    2018-01-01
+  </div>
+  <div
+    className="col-md-1"
+  >
+    <i
+      className="glyphicon glyphicon-edit"
+    />
+     
+    <i
+      className="icon-remove-circle"
+    />
+  </div>
+</div>
+`;
+
+exports[`Footer component 1`] = `
+<div
+  id="footer"
+>
+  <div
+    className="container"
+  >
+    <p
+      className="text-muted credit"
+    >
+      Restful-booker created by 
+      <a
+        href="http://mwtestconsultancy.co.uk"
+      >
+        Mark Winteringham
+      </a>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Form component 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-md-1"
+  >
+    <input
+      className="form-control input-sm"
+      placeholder="Firstname"
+      type="text"
+    />
+  </div>
+  <div
+    className="col-md-2"
+  >
+    <input
+      className="form-control input-sm"
+      placeholder="Lastname"
+      type="text"
+    />
+  </div>
+  <div
+    className="col-md-1"
+  >
+    <input
+      className="form-control input-sm"
+      placeholder="Price"
+      type="text"
+    />
+  </div>
+  <div
+    className="col-md-1"
+  >
+    <input
+      className="form-control input-sm"
+      placeholder="Deposit?"
+      type="text"
+    />
+  </div>
+  <div
+    className="col-md-2"
+  >
+    <input
+      className="form-control input-sm"
+      placeholder="Additional"
+      type="text"
+    />
+  </div>
+  <div
+    className="col-md-2"
+  >
+    <input
+      className="form-control input-sm"
+      placeholder="Checkin"
+      type="text"
+    />
+  </div>
+  <div
+    className="col-md-2"
+  >
+    <input
+      className="form-control input-sm"
+      placeholder="Checkout"
+      type="text"
+    />
+  </div>
+  <div
+    className="col-md-1"
+  >
+    <button
+      className="btn btn-sm"
+      onClick={[Function]}
+    >
+      Add
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Header component 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-md-1"
+  >
+    <p
+      className="lead"
+    >
+      Firstname
+    </p>
+  </div>
+  <div
+    className="col-md-2"
+  >
+    <p
+      className="lead"
+    >
+      Lastname
+    </p>
+  </div>
+  <div
+    className="col-md-1"
+  >
+    <p
+      className="lead"
+    >
+      Price
+    </p>
+  </div>
+  <div
+    className="col-md-1"
+  >
+    <p
+      className="lead"
+    >
+      Deposit
+    </p>
+  </div>
+  <div
+    className="col-md-2"
+  >
+    <p
+      className="lead"
+    >
+      Additional
+    </p>
+  </div>
+  <div
+    className="col-md-2"
+  >
+    <p
+      className="lead"
+    >
+      Checkin
+    </p>
+  </div>
+  <div
+    className="col-md-2"
+  >
+    <p
+      className="lead"
+    >
+      Checkout
+    </p>
+  </div>
+  <div
+    className="col-md-1"
+  />
+</div>
+`;
+
+exports[`Nav component 1`] = `
+<div
+  className="navbar navbar-default navbar-fixed-top"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="navbar-header"
+    >
+      <button
+        className="navbar-toggle"
+        data-target=".navbar-collapse"
+        data-toggle="collapse"
+        type="button"
+      >
+        <span
+          className="icon-bar"
+        />
+        <span
+          className="icon-bar"
+        />
+        <span
+          className="icon-bar"
+        />
+      </button>
+      <a
+        className="navbar-brand"
+        href="#"
+      >
+        Restful booker
+      </a>
+    </div>
+  </div>
 </div>
 `;
