@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "NODE_ENV=test jest --watch",
-    "start": "webpack-dev-server --port 8888"
+    "start": "webpack-dev-server --port 8888",
+    "build": "webpack -p"
   },
   "jest": {
     "setupFiles": [

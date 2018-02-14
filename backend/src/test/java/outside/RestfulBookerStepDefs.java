@@ -78,7 +78,7 @@ public class RestfulBookerStepDefs {
     public void shown_to_the_user_as_stored() throws Exception {
         String responseBooking = createdResponse.getBody().prettyPrint();
         String expectedResponse = "{\n" +
-                "    \"bookingid\": 1,\n" +
+                "    \"bookingid\": 2,\n" +
                 "    \"booking\": {\n" +
                 "        \"firstname\": \"Mark\",\n" +
                 "        \"lastname\": \"Winters\",\n" +
@@ -176,6 +176,8 @@ public class RestfulBookerStepDefs {
                                     .contentType(ContentType.JSON)
                                   .when()
                                     .put("/booking/" + createdResponse.as(CreatedBooking.class).getBookingid());
+
+        System.out.println(createdResponse.as(CreatedBooking.class).getBookingid());
 
         Assert.assertThat(updatedBooking.statusCode(), is(202));
     }

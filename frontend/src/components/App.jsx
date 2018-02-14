@@ -25,14 +25,21 @@ export default class App extends React.Component {
   }
 
   render() {
+    let bookings = null;
+    if(this.state.bookings.length > 0){
+        bookings = this.state.bookings.map((name, index) => {
+            return <div key={name.id}><Booking id={name.id} /></div>
+        })
+    } else {
+        bookings = <p>No bookings found</p>
+    }
+
     return (
       <div id="wrap">
           <Nav />
           <div className="container">
               <Header />
-              {this.state.bookings.map((name, index) => {
-                  return <div key={name.id}><Booking id={name.id} /></div>
-              })}
+                {bookings}
               <Form />
           </div>
       </div>);

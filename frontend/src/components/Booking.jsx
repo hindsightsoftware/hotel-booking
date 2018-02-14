@@ -94,8 +94,8 @@ export default class Booking extends React.Component {
                     <div className="col-md-2"><input ref={el => this.checkInValue=el} defaultValue={this.state.booking.bookingdates.checkin} type="text" className="editcheckin form-control input-sm" placeholder="Checkin" /></div>
                     <div className="col-md-2"><input ref={el => this.checkOutValue=el} defaultValue={this.state.booking.bookingdates.checkout} type="text" className="editcheckout form-control input-sm" placeholder="Checkout" /></div>
                     <div className="col-md-1">
-                        <button onClick={this.updateValue} className="edit btn btn-sm">Add</button>
-                        <button onClick={this.editMe} className="cancel btn btn-sm"><i className="glyphicon glyphicon-remove"></i></button>
+                        <button onClick={this.updateValue} className="edit btn btn-sm control"><i className="glyphicon glyphicon-ok"></i></button>
+                        <button onClick={this.editMe} className="cancel btn btn-sm control"><i className="glyphicon glyphicon-remove"></i></button>
                     </div>
                 </div>
             )
@@ -110,8 +110,8 @@ export default class Booking extends React.Component {
                     <div className="col-md-2">{this.state.booking.bookingdates.checkin}</div>
                     <div className="col-md-2">{this.state.booking.bookingdates.checkout}</div>
                     <div className="col-md-1">
-                        <button onClick={this.editMe} className="edit"><i className="glyphicon glyphicon-edit"></i></button>
-                        <button onClick={this.destroyMe} className="delete"><i className="glyphicon glyphicon-remove"></i></button>
+                        <button onClick={this.editMe} className="edit btn btn-sm control"><i className="glyphicon glyphicon-edit"></i></button>
+                        <button onClick={this.destroyMe} className="delete btn btn-sm control"><i className="glyphicon glyphicon-remove"></i></button>
                     </div>      
                 </div>
             );

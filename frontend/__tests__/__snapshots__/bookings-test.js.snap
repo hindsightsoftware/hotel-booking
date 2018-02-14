@@ -71,7 +71,7 @@ exports[`Booking component 1`] = `
     className="col-md-1"
   >
     <button
-      className="edit"
+      className="edit btn btn-sm control"
       onClick={[Function]}
     >
       <i
@@ -79,7 +79,7 @@ exports[`Booking component 1`] = `
       />
     </button>
     <button
-      className="delete"
+      className="delete btn btn-sm control"
       onClick={[Function]}
     >
       <i
@@ -136,7 +136,7 @@ exports[`Cancel edit booking component 1`] = `
       className="col-md-1"
     >
       <button
-        className="edit"
+        className="edit btn btn-sm control"
         onClick={[Function]}
       >
         <i
@@ -144,7 +144,7 @@ exports[`Cancel edit booking component 1`] = `
         />
       </button>
       <button
-        className="delete"
+        className="delete btn btn-sm control"
         onClick={[Function]}
       >
         <i
@@ -237,13 +237,15 @@ exports[`Edit booking component 1`] = `
       className="col-md-1"
     >
       <button
-        className="edit btn btn-sm"
+        className="edit btn btn-sm control"
         onClick={[Function]}
       >
-        Add
+        <i
+          className="glyphicon glyphicon-ok"
+        />
       </button>
       <button
-        className="cancel btn btn-sm"
+        className="cancel btn btn-sm control"
         onClick={[Function]}
       >
         <i
@@ -257,7 +259,7 @@ exports[`Edit booking component 1`] = `
 
 exports[`Form component 1`] = `
 <div
-  className="row"
+  className="row form"
 >
   <div
     className="col-md-1"
@@ -295,7 +297,7 @@ exports[`Form component 1`] = `
     <input
       className="form-control input-sm"
       id="depositpaid"
-      placeholder="Deposit?"
+      placeholder="Deposit"
       type="text"
     />
   </div>
@@ -333,7 +335,7 @@ exports[`Form component 1`] = `
     className="col-md-1"
   >
     <button
-      className="btn btn-sm"
+      className="btn btn-sm addButton"
       onClick={[Function]}
     >
       Add
