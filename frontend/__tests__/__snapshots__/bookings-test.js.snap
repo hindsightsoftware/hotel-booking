@@ -65,14 +65,19 @@ exports[`Booking component 1`] = `
   <div
     className="col-md-2"
   >
-    2018-01-01
+    2019-01-01
   </div>
   <div
     className="col-md-1"
   >
-    <i
-      className="glyphicon glyphicon-edit"
-    />
+    <button
+      className="edit"
+      onClick={[Function]}
+    >
+      <i
+        className="glyphicon glyphicon-edit"
+      />
+    </button>
     <button
       className="delete"
       onClick={[Function]}
@@ -83,6 +88,171 @@ exports[`Booking component 1`] = `
     </button>
   </div>
 </div>
+`;
+
+exports[`Cancel edit booking component 1`] = `
+<Booking
+  id="1"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-1"
+    >
+      Billy
+    </div>
+    <div
+      className="col-md-2"
+    >
+      Brown
+    </div>
+    <div
+      className="col-md-1"
+    >
+      90
+    </div>
+    <div
+      className="col-md-1"
+    >
+      true
+    </div>
+    <div
+      className="col-md-2"
+    >
+      Jam
+    </div>
+    <div
+      className="col-md-2"
+    >
+      2018-01-01
+    </div>
+    <div
+      className="col-md-2"
+    >
+      2019-01-01
+    </div>
+    <div
+      className="col-md-1"
+    >
+      <button
+        className="edit"
+        onClick={[Function]}
+      >
+        <i
+          className="glyphicon glyphicon-edit"
+        />
+      </button>
+      <button
+        className="delete"
+        onClick={[Function]}
+      >
+        <i
+          className="glyphicon glyphicon-remove"
+        />
+      </button>
+    </div>
+  </div>
+</Booking>
+`;
+
+exports[`Edit booking component 1`] = `
+<Booking
+  id="1"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-1"
+    >
+      <input
+        className="editfirstname form-control input-sm"
+        defaultValue="Billy"
+        placeholder="Firstname"
+        type="text"
+      />
+    </div>
+    <div
+      className="col-md-2"
+    >
+      <input
+        className="editlastname form-control input-sm"
+        defaultValue="Brown"
+        placeholder="Lastname"
+        type="text"
+      />
+    </div>
+    <div
+      className="col-md-1"
+    >
+      <input
+        className="edittotalprice form-control input-sm"
+        defaultValue={90}
+        placeholder="Price"
+        type="text"
+      />
+    </div>
+    <div
+      className="col-md-1"
+    >
+      <input
+        className="editdepositpaid form-control input-sm"
+        defaultValue="true"
+        placeholder="Deposit?"
+        type="text"
+      />
+    </div>
+    <div
+      className="col-md-2"
+    >
+      <input
+        className="editadditionalneeds form-control input-sm"
+        defaultValue="Jam"
+        placeholder="Additional"
+        type="text"
+      />
+    </div>
+    <div
+      className="col-md-2"
+    >
+      <input
+        className="editcheckin form-control input-sm"
+        defaultValue="2018-01-01"
+        placeholder="Checkin"
+        type="text"
+      />
+    </div>
+    <div
+      className="col-md-2"
+    >
+      <input
+        className="editcheckout form-control input-sm"
+        defaultValue="2019-01-01"
+        placeholder="Checkout"
+        type="text"
+      />
+    </div>
+    <div
+      className="col-md-1"
+    >
+      <button
+        className="edit btn btn-sm"
+        onClick={[Function]}
+      >
+        Add
+      </button>
+      <button
+        className="cancel btn btn-sm"
+        onClick={[Function]}
+      >
+        <i
+          className="glyphicon glyphicon-remove"
+        />
+      </button>
+    </div>
+  </div>
+</Booking>
 `;
 
 exports[`Form component 1`] = `

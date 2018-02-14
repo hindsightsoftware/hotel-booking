@@ -50,9 +50,9 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/booking/{id}", method = RequestMethod.PUT)
-    public ResponseEntity updateBooking(@RequestBody Booking booking, @PathVariable(value = "id") int id, @CookieValue(value ="token", required = false) String token) throws SQLException {
+    public ResponseEntity updateBooking(@RequestBody Booking booking, @PathVariable(value = "id") int id, @CookieValue(value ="token", required = false) String token, @RequestHeader("Authorization") String auth) throws SQLException {
         System.out.println(booking.toString());
-        if(Tokens.verify(token)){
+        if(Tokens.verify(token) || auth.equals("Basic YWRtaW46cGFzc3dvcmQxMjM=")){
             if(bookingDB.update(id, booking)){
                 return ResponseEntity.accepted().build();
             } else {

@@ -46,6 +46,53 @@ test('Booking component', () => {
     expect(bookingEntry).toMatchSnapshot();
 });
 
+test('Edit booking component', () => {
+    const testBooking = {
+        "firstname": "Billy",
+        "lastname": "Brown",
+        "totalprice": 90,
+        "depositpaid": true,
+        "additionalneeds": "Jam",
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        }
+    }
+
+    const bookingEntry = mount(
+        <Booking id="1" />
+    )
+
+    bookingEntry.setState({ booking: testBooking })
+    bookingEntry.find('.edit').simulate('click');
+
+    expect(bookingEntry).toMatchSnapshot();
+});
+
+test('Cancel edit booking component', () => {
+    const testBooking = {
+        "firstname": "Billy",
+        "lastname": "Brown",
+        "totalprice": 90,
+        "depositpaid": true,
+        "additionalneeds": "Jam",
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        }
+    }
+
+    const bookingEntry = mount(
+        <Booking id="1" />
+    )
+
+    bookingEntry.setState({ booking: testBooking })
+    bookingEntry.find('.edit').simulate('click');
+    bookingEntry.find('.cancel').simulate('click');
+
+    expect(bookingEntry).toMatchSnapshot();
+});
+
 test('Nav component', () => {
     const navBar = shallow(
         <Nav />
@@ -130,3 +177,53 @@ test('Delete booking', (done) => {
     bookingEntry.setState({ booking: testBooking });
     bookingEntry.find('.delete').simulate('click');
 });
+
+test('Edit booking', (done) => {
+
+    const initialBooking = {
+        "firstname": "Billy",
+        "lastname": "Brown",
+        "totalprice": 90,
+        "depositpaid": true,
+        "additionalneeds": "Jam",
+        "bookingdates": {
+            "checkin": "2018-01-01",
+            "checkout": "2019-01-01"
+        }
+    }
+
+    const bookingEntry = mount(
+        <Booking id="1" />
+    )
+
+    bookingEntry.setState({ booking: initialBooking })
+
+    const updatedBooking = {
+        "firstname": "Mark",
+        "lastname": "Winteringham",
+        "totalprice": "123",
+        "depositpaid": "false",
+        "additionalneeds": "Eggs",
+        "bookingdates": {
+            "checkin": "2018-01-02",
+            "checkout": "2018-01-03"
+        }
+    }
+
+    nock('http://localhost')
+        .put('/booking/1', updatedBooking)
+        .reply(201, () => {
+            done();
+        });
+
+    bookingEntry.find('.edit').simulate('click');
+    bookingEntry.find('.editfirstname').instance().value = "Mark"
+    bookingEntry.find('.editlastname').instance().value = "Winteringham"
+    bookingEntry.find('.edittotalprice').instance().value = "123"
+    bookingEntry.find('.editdepositpaid').instance().value = "false"
+    bookingEntry.find('.editadditionalneeds').instance().value = "Eggs"
+    bookingEntry.find('.editcheckin').instance().value = "2018-01-02"
+    bookingEntry.find('.editcheckout').instance().value = "2018-01-03"
+    bookingEntry.find('.edit').simulate('click');
+
+})
