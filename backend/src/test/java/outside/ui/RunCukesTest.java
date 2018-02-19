@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        glue = {"src/test/java/outside/ui"},
+        glue = {"outside/ui"},
         features = {"src/test/resource/outside"}
 )
 public class RunCukesTest {

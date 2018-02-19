@@ -3,6 +3,7 @@ package outside.api;
 import api.Application;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -13,6 +14,8 @@ import model.CreatedBooking;
 import model.Token;
 import org.junit.Assert;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
+import outside.ui.driverfactory.DriverFactory;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -31,17 +34,16 @@ public class HotelBookingStepDefs {
     private Response createdResponse;
     private Response authResponse;
     private Response queriedResponse;
-    private Response multipleResponse1;
-    private Response multipleResponse2;
-
-    private static boolean loadApi = false;
+    private ApplicationContext app;
 
     @Before
-    public void setup() throws SQLException {
-        if(!loadApi){
-            SpringApplication.run(Application.class);
-            loadApi = true;
-        }
+    public void SetUp(){
+        app = SpringApplication.run(Application.class);
+    }
+
+    @After
+    public void TearDown() {
+        SpringApplication.exit(app);
     }
 
     @Given("^a user wants to make a booking with the following details$")
