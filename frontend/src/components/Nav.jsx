@@ -11,7 +11,7 @@ export default class Nav extends React.Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">Restful booker</a>
+            <a className="navbar-brand" href="#">Hotel booking</a>
           </div>
         </div>
       </div>);

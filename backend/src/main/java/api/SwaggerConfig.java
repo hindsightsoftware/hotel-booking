@@ -29,9 +29,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Restful-booker")
-                .description("Description to come")
-                .contact("Mark Winteringham")
+                .title("Hotel-booking")
+                .description("Demo APP for Hindsight Software testing purposes")
+                .contact("mark.winteringham@hindsightsoftware.co.uk")
                 .license("MIT")
                 .licenseUrl("https://opensource.org/licenses/MIT")
                 .version("1.0")

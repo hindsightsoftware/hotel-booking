@@ -1,7 +1,7 @@
 {
-  "name": "restful-booker-frontend",
+  "name": "hotel-booking-frontend",
   "version": "1.0.0",
-  "description": "A frontend for the restful-booker app",
+  "description": "A frontend for the hotel booking app",
   "main": "index.js",
   "scripts": {
     "test": "jest",

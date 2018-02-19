@@ -447,7 +447,7 @@ exports[`Nav component 1`] = `
         className="navbar-brand"
         href="#"
       >
-        Restful booker
+        Hotel booking
       </a>
     </div>
   </div>

@@ -21,7 +21,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
-public class RestfulBookerStepDefs {
+public class HotelBookingStepDefs {
 
     private WebDriver driver;
     private BookingPage bookingPage;
@@ -74,7 +74,7 @@ public class RestfulBookerStepDefs {
         Assert.assertThat(rowText, containsString("2018-01-03"));
     }
 
-    @Given("^RestfulBooker has existing bookings$")
+    @Given("^Hotel Booking has existing bookings$")
     public void createNewBooking() throws Exception {
         driver.navigate().to("http://localhost:8080/");
 

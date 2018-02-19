@@ -24,7 +24,7 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.Is.is;
 
-public class RestfulBookerStepDefs {
+public class HotelBookingStepDefs {
 
     private Booking booking;
     private SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
@@ -75,7 +75,7 @@ public class RestfulBookerStepDefs {
     }
 
     @Then("^shown to the user as stored$")
-    public void shown_to_the_user_as_stored() throws Exception {
+    public void assertBookingisStored() throws Exception {
         String responseBooking = createdResponse.getBody().prettyPrint();
         String expectedResponse = "{\n" +
                 "    \"bookingid\": 2,\n" +
@@ -95,8 +95,8 @@ public class RestfulBookerStepDefs {
         Assert.assertThat(expectedResponse,is(responseBooking));
     }
 
-    @Given("^RestfulBooker has existing bookings$")
-    public void restfulbooker_has_existing_bookings() throws Exception {
+    @Given("^Hotel Booking has existing bookings$")
+    public void createBookings() throws Exception {
         createdResponse = createBooking();
     }
 
@@ -108,7 +108,7 @@ public class RestfulBookerStepDefs {
     }
 
     @Then("^the booking is shown$")
-    public void the_booking_is_shown() throws Exception {
+    public void viewAndAssertBookingResponse() throws Exception {
         String responseBooking = queriedResponse.body().prettyPrint();
         String expectedResponse = "{\n" +
                 "    \"firstname\": \"Mark\",\n" +
