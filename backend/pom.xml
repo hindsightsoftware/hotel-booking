@@ -119,6 +119,12 @@
             <version>3.9.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.approvaltests</groupId>
+            <artifactId>approvaltests</artifactId>
+            <version>0.0.19</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
