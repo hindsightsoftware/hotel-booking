@@ -5,7 +5,16 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <distributionManagement>
+        <repository>
+            <id>bintray-hindsight-maven</id>
+            <name>hindsightsoftware-public-maven</name>
+            <url>https://api.bintray.com/maven/hindsightsoftware/public-maven/hotel-booking/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
     <modules>
+        <module>external-libs</module>
         <module>frontend</module>
         <module>backend</module>
     </modules>

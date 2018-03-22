@@ -1,0 +1,10 @@
+<configuration>
+    <mavenLike>false</mavenLike>
+    <autoIncrementPatch>true</autoIncrementPatch>
+    <useCommitDistance>false</useCommitDistance>
+    <useDirty>false</useDirty>
+    <useGitCommitId>false</useGitCommitId>
+    <gitCommitIdLength>8</gitCommitIdLength>  <!-- between [8,40] -->
+    <nonQualifierBranches>master</nonQualifierBranches> <!-- comma separated, example "master,integration" -->
+    <useDefaultBranchingPolicy>true</useDefaultBranchingPolicy>   <!-- uses jgitver#BranchingPolicy#DEFAULT_FALLBACK as fallback branch policy-->
+</configuration>

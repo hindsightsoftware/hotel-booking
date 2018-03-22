@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require("path");
+const packageJSON = require('./package.json');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,10 +10,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
     inject: 'body'
   })
 
+const PATHS = {
+  build: path.join(__dirname, 'target', 'classes', 'META-INF', 'resources', 'webjars', packageJSON.name, packageJSON.version)
+};
+
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve('../backend/src/main/resources/public'),
+    path: PATHS.build,
     filename: 'index_bundle.js'
   },
   module: {
