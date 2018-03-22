@@ -12,7 +12,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve('../backend/target/generated-sources/resources/public'),
+    path: path.resolve('../backend/src/main/resources/public'),
     filename: 'index_bundle.js'
   },
   module: {
