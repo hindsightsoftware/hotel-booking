@@ -31,11 +31,6 @@ jobs:
 
       - run: mvn install
 
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - repo
-
   deploy_to_maven:
 
     docker:
@@ -66,8 +61,8 @@ workflows:
     jobs: 
       - run_build
       - deploy_to_maven:
-          requires:
-            - run_build
           filters:
             tags:
               only: /^v.*/
+            branches:
+              ignore: /.*/
