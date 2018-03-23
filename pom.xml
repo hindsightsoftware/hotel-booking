@@ -7,6 +7,7 @@
 
     <properties>
         <deployAtEnd>true</deployAtEnd>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <modules>
