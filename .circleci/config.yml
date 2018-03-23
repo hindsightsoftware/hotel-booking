@@ -31,6 +31,11 @@ jobs:
 
       - run: mvn install
 
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - repo
+
   deploy_to_maven:
 
     docker:
@@ -43,6 +48,9 @@ jobs:
 
     steps:
       - checkout
+
+      - attach_workspace:
+          at: ~/repo
 
       - restore_cache:
           keys:
