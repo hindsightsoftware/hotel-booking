@@ -6,10 +6,10 @@ import Header from './Header.jsx';
 import Form from './Form.jsx';
 
 export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = { bookings : [] };
-  }
+    constructor() {
+        super();
+        this.state = { bookings : [] };
+    }
 
   componentDidMount() {
     if (process.env.NODE_ENV === 'test') return // https://github.com/facebookincubator/create-react-app/issues/3482 - Allegedly will be fixed soon
@@ -17,8 +17,8 @@ export default class App extends React.Component {
     request
         .get('/booking')
         .then((res, err) => {
-          const bookings = res.body;
-          this.setState({bookings});
+            const bookings = res.body;
+            this.setState({bookings});
         }).catch(e => {
             console.log(e);
         })
@@ -35,13 +35,15 @@ export default class App extends React.Component {
     }
 
     return (
-      <div id="wrap">
-          <Nav />
-          <div className="container">
-              <Header />
-                {bookings}
-              <Form />
-          </div>
-      </div>);
+        <div id="wrap">
+            <Nav />
+            <div className="container">
+                <Header />
+                <div id="bookings">
+                    {bookings}
+                </div>
+                <Form />
+            </div>
+        </div>);
   }
 }

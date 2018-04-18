@@ -10,18 +10,22 @@ exports[`App component 1`] = `
   >
     <Header />
     <div
-      key="1"
+      id="bookings"
     >
-      <Booking
-        id={1}
-      />
-    </div>
-    <div
-      key="2"
-    >
-      <Booking
-        id={2}
-      />
+      <div
+        key="1"
+      >
+        <Booking
+          id={1}
+        />
+      </div>
+      <div
+        key="2"
+      >
+        <Booking
+          id={2}
+        />
+      </div>
     </div>
     <Form />
   </div>

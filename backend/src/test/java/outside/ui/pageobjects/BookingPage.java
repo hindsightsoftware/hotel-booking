@@ -37,7 +37,7 @@ public class BookingPage extends Page {
     @FindBy(how = How.CSS, using = ".addButton")
     private WebElement btnSubmit;
 
-    @FindBy(how = How.CSS, using = ".container > div .row")
+    @FindBy(how = How.CSS, using = "#bookings .row")
     private List<WebElement> listRows;
 
     @FindBy(how = How.CSS, using = ".glyphicon-remove")
