@@ -11,8 +11,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
   })
 
 const PATHS = {
-  build: path.join(__dirname, 'target', 'classes', 'META-INF', 'resources', 'webjars', packageJSON.name, packageJSON.version)
+  build: path.join(__dirname, '..', 'backend', 'target', 'classes', 'META-INF', 'resources', 'webjars', packageJSON.name, packageJSON.version)
 };
+
+console.log(PATHS.build)
 
 module.exports = {
   entry: './src/index.js',
