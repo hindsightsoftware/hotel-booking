@@ -12,7 +12,6 @@
 
     <modules>
         <module>external-libs</module>
-        <module>frontend</module>
         <module>backend</module>
     </modules>
 </project>
