@@ -7,7 +7,8 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         glue = {"outside/api"},
-        features = {"src/test/resource/outside"}
+        features = {"src/test/resource/outside"},
+        format = {"html:target/failsafe-reports"}
 )
-public class RunCukesTest {
+public class RunCukesIT {
 }

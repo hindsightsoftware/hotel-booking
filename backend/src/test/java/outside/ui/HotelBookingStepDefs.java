@@ -1,7 +1,5 @@
 package outside.ui;
 
-import api.Application;
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -10,8 +8,6 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
 import outside.ui.driverfactory.DriverFactory;
 import outside.ui.pageobjects.BookingPage;
 
@@ -25,20 +21,15 @@ public class HotelBookingStepDefs {
 
     private WebDriver driver;
     private BookingPage bookingPage;
-    private ApplicationContext app;
 
     @Before
     public void SetUp(){
         driver = new DriverFactory().create();
-
-        app = SpringApplication.run(Application.class);
     }
 
     @After
     public void TearDown() {
         driver.quit();
-
-        SpringApplication.exit(app);
     }
 
     @Given("^a user wants to make a booking with the following details$")

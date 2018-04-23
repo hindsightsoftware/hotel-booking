@@ -1,10 +1,7 @@
 package outside.api;
 
-import api.Application;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,18 +10,13 @@ import model.Booking;
 import model.CreatedBooking;
 import model.Token;
 import org.junit.Assert;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import outside.ui.driverfactory.DriverFactory;
 
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import static com.jayway.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.Is.is;
 
 public class HotelBookingStepDefs {
@@ -34,17 +26,6 @@ public class HotelBookingStepDefs {
     private Response createdResponse;
     private Response authResponse;
     private Response queriedResponse;
-    private ApplicationContext app;
-
-    @Before
-    public void SetUp(){
-        app = SpringApplication.run(Application.class);
-    }
-
-    @After
-    public void TearDown() {
-        SpringApplication.exit(app);
-    }
 
     @Given("^a user wants to make a booking with the following details$")
     public void createBookingPayload(List<String> table) throws Exception {
