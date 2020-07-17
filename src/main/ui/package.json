@@ -1,0 +1,64 @@
+{
+  "name": "hotel-booking-frontend",
+  "version": "1.0.0",
+  "description": "A frontend for the hotel booking app",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "NODE_ENV=test jest --watch",
+    "start": "webpack-dev-server --port 8888",
+    "build": "webpack -p"
+  },
+  "jest": {
+    "setupFiles": [
+      "./test/jestsetup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
+  "author": "Mark Winteringham",
+  "license": "MIT",
+  "devDependencies": {
+    "add": "^2.0.6",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap": "^4.0.0-beta",
+    "bootstrap-loader": "^2.2.0",
+    "bootstrap-sass": "^3.3.7",
+    "css-loader": "^0.28.9",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
+    "exports-loader": "^0.7.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "font-awesome": "^4.7.0",
+    "html-webpack-plugin": "^2.30.1",
+    "imports-loader": "^0.7.1",
+    "jest": "^22.2.2",
+    "jquery": "^3.3.1",
+    "nock": "^9.1.6",
+    "node-sass": "^4.14.0",
+    "path": "^0.12.7",
+    "popper.js": "^1.12.9",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^11.1.0",
+    "postcss-loader": "^2.1.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-test-renderer": "^16.2.0",
+    "resolve-url-loader": "^2.2.1",
+    "sass-loader": "^6.0.6",
+    "sinon": "^4.3.0",
+    "style-loader": "^0.20.1",
+    "sugarss": "^1.0.1",
+    "superagent": "^3.8.2",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}
