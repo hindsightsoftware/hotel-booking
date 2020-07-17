@@ -42,11 +42,25 @@ handlePasswordChange(e) {
 
 render() {
     return (
-        <div className="row form">
-            <div className="col-md-1"><input type="text" id="username" onChange={(e) => {this.handleUsernameChange(e)}} className="form-control input-sm" placeholder="admin" /></div>
-            <div className="col-md-2"><input type="text" id="email" onChange={(e) => {this.handlePasswordChange(e)}} className="form-control input-sm" placeholder="password123" /></div>
-            <div className="col-md-1"><button onClick={this.handleLogin.bind(this)} className="btn btn-sm">Login</button></div>
-            <p>Use <strong>admin</strong> as a username and <strong>password123</strong> for password</p>
-        </div>)
+        <div className="row"> 
+            <div className="container">
+                <h2 style={{textAlign: 'left', marginBottom: '30px'}}>Welcome </h2>
+                <div>
+                    <div class="form-group">
+                        <label for="username">User name:</label>
+                        <input type="text" id="username" onChange={(e) => {this.handleUsernameChange(e)}} className="form-control input-sm" placeholder="admin" />
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="text" id="email" onChange={(e) => {this.handlePasswordChange(e)}} className="form-control input-sm" placeholder="password123" />
+                    </div>
+                    <div class="form-group">
+                        <p>Please use <strong>admin</strong> as a username and <strong>password123</strong> for password.</p>
+                    </div>
+                    <button onClick={this.handleLogin.bind(this)} className="btn btn-default">Login</button>
+                </div>
+            </div>
+        </div>
+        )
     }
 }
