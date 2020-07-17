@@ -25,11 +25,12 @@ export default class Form extends React.Component {
         request
             .post('/api/booking')
             .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${this.props.token}`)
             .send(bookingModel)
             .then((res, err) => {
-                window.location.reload();
+                this.props.onSuccess();
             }).catch(e => {
-                console.log(e);
+                console.error(e);
             })
     }
 

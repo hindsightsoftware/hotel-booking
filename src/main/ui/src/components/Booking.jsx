@@ -28,11 +28,19 @@ export default class Booking extends React.Component {
     componentDidMount() {
         if (process.env.NODE_ENV === 'test') return
         
+        this.loadData()
+    }
+
+    loadData() {
         request
             .get('/api/booking/' + this.props.id)
+            .set('Authorization', `Bearer ${this.props.token}`)
             .then((res, err) => {
-              const booking = res.body;
-              this.setState({booking});
+              const booking = JSON.parse(res.text);
+              this.setState({
+                  edit: false,
+                  booking
+                });
             }).catch(e => {
                 console.log(e);
             })
@@ -41,9 +49,9 @@ export default class Booking extends React.Component {
     destroyMe() {
         request
             .delete('/api/booking/' + this.props.id)
-            .auth('admin', 'password123')
+            .set('Authorization', `Bearer ${this.props.token}`)
             .then((res, err) => {
-                window.location.reload();
+                this.props.onDelete();
             }).catch(e => {
                 console.log(e);
             })
@@ -73,10 +81,10 @@ export default class Booking extends React.Component {
         request
             .put('/api/booking/' + this.props.id)
             .set('Content-Type', 'application/json')
-            .auth('admin', 'password123')
+            .set('Authorization', `Bearer ${this.props.token}`)
             .send(bookingModel)
             .then((res, err) => {
-                window.location.reload();
+                this.loadData();
             }).catch(e => {
                 console.log(e);
             })
