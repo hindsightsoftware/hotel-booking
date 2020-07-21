@@ -36,7 +36,16 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            docker build . -t hindsightsoftware/hotel-booking
+            docker build . -t hindsightsoftware/hotel-booking:latest
+
+      - run:
+          name: Publish
+          command: |
+            docker login --username=$DOCKER_USER --password=$DOCKER_PASS
+            docker push hindsightsoftware/hotel-booking:latest
+
+            docker tag hindsightsoftware/hotel-booking:latest hindsightsoftware/hotel-booking:$(git describe --always)
+            docker push hindsightsoftware/hotel-booking:$(git describe --always)
 
 workflows:
   version: 2
