@@ -45,9 +45,9 @@ jobs:
             docker save -o /tmp/image/hotel-booking.tar hindsightsoftware/hotel-booking:latest
 
       - persist_to_workspace:
-          root: ~/repo
+          root: /tmp
           paths:
-            - /tmp/image
+            - image
 
   deploy:
     docker:
