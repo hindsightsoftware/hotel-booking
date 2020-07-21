@@ -80,8 +80,7 @@ public class BookingControllerTest {
                 .setAdditionalNeeds("Breakfast")
                 .build();
 
-        bookingController.updateBooking(model, bookingId);
-        BookingModel booking = bookingController.getBookingById(bookingId);
+        BookingModel booking = bookingController.updateBooking(model, bookingId);
 
         Assertions.assertEquals(model.getTotalPrice(), booking.getTotalPrice());
         Assertions.assertEquals(model.getAdditionalNeeds(), booking.getAdditionalNeeds());

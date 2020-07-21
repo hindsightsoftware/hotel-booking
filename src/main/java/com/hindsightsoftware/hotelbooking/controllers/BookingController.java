@@ -67,7 +67,7 @@ public class BookingController {
     }
 
     @PutMapping("/api/booking/{id}")
-    public void updateBooking(@RequestBody BookingModel model, @PathVariable Long id) {
+    public BookingModel updateBooking(@RequestBody BookingModel model, @PathVariable Long id) {
         Optional<Booking> optionalBooking = bookingRepository.findById(id);
         if (!optionalBooking.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found");
@@ -81,7 +81,9 @@ public class BookingController {
         booking.setCheckOut(model.getBookingDates().getCheckout());
         booking.setDepositPaid(model.isDepositPaid());
         booking.setTotalPrice(model.getTotalPrice());
-        bookingRepository.save(booking);
+        booking = bookingRepository.save(booking);
+
+        return BookingModel.from(booking);
     }
 
     @DeleteMapping("/api/booking/{id}")
