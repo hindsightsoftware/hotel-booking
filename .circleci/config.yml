@@ -1,12 +1,38 @@
 version: 2.1
 
 jobs:
-  build:
+  test:
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: circleci/openjdk:8-jdk-stretch
+
     steps:
       - checkout
+
+      - restore_cache:
+          key: hotel-booking-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Go Offline
+          command: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: hotel-booking-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Unit Tests
+          command: mvn test
+
+  build:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+        
+    steps:
+      - checkout
+
       - setup_remote_docker
+
       - run:
           name: Build Docker image
           command: |
