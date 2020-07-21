@@ -39,6 +39,34 @@ jobs:
             docker build . -t hindsightsoftware/hotel-booking:latest
 
       - run:
+          name: Save image to an archive
+          command: |
+            mkdir /tmp/image
+            docker save -o /tmp/image/hotel-booking.tar hindsightsoftware/hotel-booking:latest
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - /tmp/image
+
+  deploy:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - attach_workspace:
+          at: /tmp
+
+      - run:
+          name: Load image
+          command: |
+            docker load --input /tmp/image/hotel-booking.tar
+
+      - run:
           name: Publish
           command: |
             docker login --username=$DOCKER_USER --password=$DOCKER_PASS
@@ -55,3 +83,6 @@ workflows:
       - build:
           requires:
             - test
+      - deploy:
+          requires:
+            - build

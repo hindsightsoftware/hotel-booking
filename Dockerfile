@@ -7,7 +7,7 @@ COPY .mvn /ap/.mvn
 COPY src /app/src
 COPY pom.xml /app/pom.xml
 
-RUN cd /app && mvn package
+RUN cd /app && mvn package -DskipTests=true
 
 RUN cp "/app/target/$(ls /app/target | grep exec.jar)" /tmp/hotel-booking.jar
 
