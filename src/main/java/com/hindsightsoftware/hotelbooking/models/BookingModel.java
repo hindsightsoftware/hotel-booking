@@ -84,4 +84,72 @@ public class BookingModel {
         model.setFirstName(entity.getFirstName());
         return model;
     }
+
+    public static class BookingBuilder {
+        private String firstName;
+        private String lastName;
+        private int totalPrice;
+        private boolean depositPaid;
+        private Date checkIn;
+        private Date checkOut;
+        private String additionalNeeds;
+
+        public BookingBuilder() {
+            this.additionalNeeds = "";
+            this.checkIn = new Date();
+            this.checkOut = new Date();
+            this.depositPaid = false;
+            this.totalPrice = 0;
+        }
+
+        public BookingBuilder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public BookingBuilder setLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public BookingBuilder setTotalPrice(int totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
+
+        public BookingBuilder setDepositPaid(boolean depositPaid) {
+            this.depositPaid = depositPaid;
+            return this;
+        }
+
+        public BookingBuilder setCheckIn(Date checkIn) {
+            this.checkIn = checkIn;
+            return this;
+        }
+
+        public BookingBuilder setCheckOut(Date checkOut) {
+            this.checkOut = checkOut;
+            return this;
+        }
+
+        public BookingBuilder setAdditionalNeeds(String additionalNeeds) {
+            this.additionalNeeds = additionalNeeds;
+            return this;
+        }
+
+        public BookingModel build(){
+            BookingDatesModel bookingDates = new BookingDatesModel();
+            bookingDates.setCheckin(checkIn);
+            bookingDates.setCheckout(checkOut);
+
+            BookingModel booking = new BookingModel();
+            booking.setTotalPrice(totalPrice);
+            booking.setFirstName(firstName);
+            booking.setLastName(lastName);
+            booking.setDepositPaid(depositPaid);
+            booking.setBookingDates(bookingDates);
+            booking.setAdditionalNeeds(additionalNeeds);
+            return booking;
+        }
+    }
 }

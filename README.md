@@ -1,4 +1,4 @@
-# Hotel-booking [![CircleCI](https://circleci.com/gh/hindsightsoftware/hotel-booking.svg?style=svg)](https://circleci.com/gh/hindsightsoftware/hotel-booking) [ ![Download](https://api.bintray.com/packages/hindsightsoftware/public-maven/hotel-booking/images/download.svg) ](https://bintray.com/hindsightsoftware/public-maven/hotel-booking/_latestVersion)
+# Hotel-booking [![CircleCI](https://circleci.com/gh/hindsightsoftware/hotel-booking.svg?style=svg)](https://circleci.com/gh/hindsightsoftware/hotel-booking)
 
 Hotel booking is a test app used for BDD tooling training. It is a simple API with a user interface that allows you to create, read, update and delete bookings.
 

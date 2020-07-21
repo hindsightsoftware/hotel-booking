@@ -10,7 +10,6 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            tag=$(git describe --always)
             docker build . -t hindsightsoftware/hotel-booking
 
 workflows:
