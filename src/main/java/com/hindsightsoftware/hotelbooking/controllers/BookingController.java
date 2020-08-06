@@ -49,7 +49,7 @@ public class BookingController {
         booking.setAdditionalNeeds(model.getAdditionalNeeds());
         booking.setCheckIn(model.getBookingDates().getCheckin());
         booking.setCheckOut(model.getBookingDates().getCheckout());
-        booking.setDepositPaid(false);
+        booking.setDepositPaid(model.isDepositPaid());
         booking.setTotalPrice(model.getTotalPrice());
         booking = bookingRepository.save(booking);
 
